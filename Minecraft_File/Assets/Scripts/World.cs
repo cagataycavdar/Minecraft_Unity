@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class World : MonoBehaviour
 {
+    public int seed;
     public Transform player;
     public Vector3 spawnPos;
     public Material material;
@@ -12,9 +14,11 @@ public class World : MonoBehaviour
     List<ChunkCoord> activeChunks = new List<ChunkCoord>();
     ChunkCoord playerChunkCoord;
     ChunkCoord playerLastChunkCoord;
+    public BiomeAttirbute biome; 
 
     private void Start()
     {
+        Random.InitState(seed);
         spawnPos = new Vector3((VoxelData.WorldSızeChunk * VoxelData.ChunkWidth) / 2f, VoxelData.ChunkHeight+2, (VoxelData.WorldSızeChunk * VoxelData.ChunkWidth) / 2f);
         GenerateWorld();
         playerLastChunkCoord = GetChunkCoordFromVector3(player.position);
@@ -81,14 +85,43 @@ public class World : MonoBehaviour
 
     public byte GetVoxel(Vector3 pos)
     {
+        int yPos = Mathf.FloorToInt(pos.y);
+
+        //eğer map dışında ise air texture döndür
         if (!IsVoxelInWorld(pos))
             return 0;
-        if (pos.y < 1)
-            return  1;
-        else if (pos.y == VoxelData.ChunkHeight - 1)
-            return  3;
+
+        //Eğer tabana ulaştıysa bedrock block döndür
+        if(yPos==0)
+            return 1;
+
+        /* Terrain Pass */
+
+        int terrainHeight = Mathf.FloorToInt(biome.terrainHeight*PerlinNoise.Get2DPerlinNoise(new Vector2(pos.x,pos.z),500,biome.terrainScale))+biome.solidGroundHeight;
+        byte voxelValue = 0;
+        if (yPos == terrainHeight)
+            voxelValue = 3;
+
+        else if (yPos < terrainHeight && yPos > terrainHeight - 4)
+            voxelValue = 5;
+        else if (yPos > terrainHeight)
+            return 0;
+
         else
-            return  2;
+            voxelValue = 2;
+
+        /* ikinci geçiş */
+
+        if (voxelValue == 2)
+        {
+            foreach(Lode lode in biome.lodes)
+            {
+                if (yPos > lode.minHeight && yPos < lode.maxHeight)
+                    if (PerlinNoise.Get3DPerlinNoise(pos, lode.noiseOffset, lode.scale, lode.threshold))
+                        voxelValue = lode.blockID;
+            }
+        }
+            return voxelValue;
     }
 
     void CreateNewChunk(int x, int z)

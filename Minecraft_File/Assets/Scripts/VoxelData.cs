@@ -4,10 +4,10 @@ using UnityEngine;
 
 public static class VoxelData
 {
-    public static readonly int ChunkWidth = 5;
-    public static readonly int ChunkHeight = 15;
+    public static readonly int ChunkWidth = 16;
+    public static readonly int ChunkHeight = 128;
     public static readonly int TextureAtlasSizeInBlocks = 4;
-    public static readonly int WorldSızeChunk =100;
+    public static readonly int WorldSızeChunk =10;
     public static int WorldSizeVoxels
     {
         get { return WorldSızeChunk * ChunkWidth; }

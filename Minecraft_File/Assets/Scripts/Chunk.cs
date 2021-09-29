@@ -70,6 +70,7 @@ public class Chunk
             {
                 for (int z = 0; z < VoxelData.ChunkWidth; z++)
                 {
+                    
                     voxelMap[x, y, z] = world.GetVoxel(new Vector3(x, y, z)+position);
                 }
             }
@@ -83,7 +84,8 @@ public class Chunk
             {
                 for (int z = 0; z < VoxelData.ChunkWidth; z++)
                 {
-                    CreateDataMesh(new Vector3(x, y, z));
+                    if (world.blockstype[voxelMap[x, y, z]].isSolid)
+                            CreateDataMesh(new Vector3(x, y, z));
                 }
             }
         }

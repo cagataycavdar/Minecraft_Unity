@@ -243,6 +243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea5a2fd8a371bb438733cdf05e9434c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seed: 44564645
+  player: {fileID: 963194228}
+  spawnPos: {x: 0, y: 0, z: 0}
   material: {fileID: 2100000, guid: 6585702cc5107e74483bcb43f7b9e7c2, type: 2}
   blockstype:
   - BlockName: Air
@@ -277,6 +280,23 @@ MonoBehaviour:
     bottomFaceTexture: 1
     leftFaceTexture: 2
     rightFaceTexture: 2
+  - BlockName: Send
+    isSolid: 1
+    backFaceTexture: 10
+    frontFaceTexture: 10
+    topFaceTexture: 10
+    bottomFaceTexture: 10
+    leftFaceTexture: 10
+    rightFaceTexture: 10
+  - BlockName: Dirt
+    isSolid: 1
+    backFaceTexture: 1
+    frontFaceTexture: 1
+    topFaceTexture: 1
+    bottomFaceTexture: 1
+    leftFaceTexture: 1
+    rightFaceTexture: 1
+  biome: {fileID: 11400000, guid: fdf09baa8401528439a0cb83f6ece338, type: 2}
 --- !u!4 &763976636
 Transform:
   m_ObjectHideFlags: 0
@@ -367,10 +387,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.179354, y: -0, z: -0, w: 0.9837846}
+  m_LocalRotation: {x: 0.27563733, y: 0, z: 0, w: 0.96126175}
   m_LocalPosition: {x: 2.38, y: 14.67, z: -11.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 20.664001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 32, y: 0, z: 0}
