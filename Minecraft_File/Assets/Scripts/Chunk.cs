@@ -13,16 +13,18 @@ public class Chunk
     List<int> voxelTriangels = new List<int>();
     List<Vector2> uvs = new List<Vector2>();
 
-    byte[,,] voxelMap = new byte[VoxelData.ChunkWidth, VoxelData.ChunkHeight, VoxelData.ChunkWidth];
+    public byte[,,] voxelMap = new byte[VoxelData.ChunkWidth, VoxelData.ChunkHeight, VoxelData.ChunkWidth];
     World world;
 
     public Chunk(ChunkCoord _coord ,World _worl)
     {
         coord = _coord;
         world = _worl;
+
         chunkGameObject = new GameObject();
         meshFilter = chunkGameObject.AddComponent<MeshFilter>();
         meshRenderer = chunkGameObject.AddComponent<MeshRenderer>();
+
         meshRenderer.material = world.material;
         chunkGameObject.transform.SetParent(world.transform);
         chunkGameObject.transform.position = new Vector3(coord.x * VoxelData.ChunkWidth, 0f, coord.z * VoxelData.ChunkWidth);
@@ -30,6 +32,7 @@ public class Chunk
         PopulateVoxelMap();
         CreateChunkMesh();
         CreateMesh();
+
     }
 
     public void CreateDataMesh(Vector3 pos)
